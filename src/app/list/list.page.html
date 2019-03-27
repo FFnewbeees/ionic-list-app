@@ -8,12 +8,32 @@
   <ion-toolbar color="secondary">
     <ion-input placeholder="Enter Item" [(ngModel)]= "input"></ion-input> 
     <ion-buttons slot="end">
-        <ion-button (click)="addListItem(input)" color="primary" >Add Items</ion-button>
+        <ion-button (click)="addListItem(input)" [disabled]="!input" color="primary" >Add Items</ion-button>
     </ion-buttons>
     </ion-toolbar>
-  <ion-list>
+  <!-- <ion-list>
     <ion-item *ngFor="let item of listItems">
-      {{item}}
+      {{item.name}}
+      {{item.status}}
+      <ion-checkbox [checked]="item.status" slot="start" (click)="changeItemStatus(item.id)"></ion-checkbox>
+      <ion-button slot="end" fill="clear" (click)="deleteItem( item.id)"> 
+        <ion-icon name="close">Delete</ion-icon>
+      </ion-button>
     </ion-item>
+  </ion-list> -->
+
+  <ion-list>
+  <ion-item-sliding *ngFor="let item of listItems">
+      <ion-item>
+      <ion-label>{{item.name}}</ion-label>  
+      </ion-item>
+      <ion-item-options side="start">
+          <ion-checkbox [checked]="item.status" (click)="changeItemStatus(item.id)"></ion-checkbox>
+      </ion-item-options>
+      <ion-item-options side="end">
+        <ion-item-option (click)="deleteItem(item.id)">Delete</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
+  
 </ion-content>
