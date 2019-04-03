@@ -33,6 +33,7 @@ export class ListPage implements OnInit {
     // console.log(this.listItems); 
     let item = {name: name, id: new Date().getTime(), status: false };
     this.listItems.push( item );
+    this.sortList();
     this.saveList();
   } 
   
@@ -58,10 +59,17 @@ export class ListPage implements OnInit {
   changeItemStatus(id:number){
     this.listItems.forEach( (item) => {
       if( item.id == id){
-        item.status = ( item.status ==  false )? true : false;
+        item.status = ( item.status == false )? true : false;
+        
       }
     } );
     this.saveList();
+  }
+
+  sortList(){
+    this.listItems.sort((item1, item2) =>{
+      return item2.id - item1.id;
+    });
   }
   
 }
